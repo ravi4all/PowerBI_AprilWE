@@ -1,0 +1,32 @@
+DAX - Data Analysis and Expression
+	- library of functions
+	- used in measures, calculated columns, calculated tables and row-level security
+
+Measures
+	- use with pre-defined functions always
+
+Columns
+	- use with data and perform calculations row by row
+
+Functions
+- Aggregate functions
+- Date and Time functions
+- Math functions
+- Statistics functions
+- Logical functions
+- String functions
+
+Operators
+Statements
+
+Logical Functions
+IF (logical_expression, true[, false])
+
+
+Total Sales = 
+VAR IndSales = FILTER(ALL(Data[Country]), Data[Country] = "India")
+RETURN CALCULATE([AvgProfit], IndSales)
+
+
+
+
