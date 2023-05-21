@@ -1,0 +1,28 @@
+Calculated Columns
+Conditional Columns
+Calculated Measures
+Calculated Tables
+Custom Columns
+==========================
+Aggregate Functions
+- AVERAGE 		- AVERAGEX / AVERAGEA
+- COUNT			- COUNTA / COUNTAX / COUNTBLANK / COUNTROWS / COUNTX
+- DISTINCTCOUNT
+- MAX				- MAXA / MAXX
+- MIN				- MINA / MINX
+- PRODUCT			- PRODUCTX
+- SUM				- SUMX
+
+AVERAGEA
+- TRUE/FALSE will be considered as 1 and 0
+- Non-Numeric data will be considered as 0
+- Empty text will also be considered as 0
+
+Filter Functions
+Logical Functions
+Statistical Functions
+Date and Time Functions
+String Functions
+Math Functions
+Financial Functions
+
