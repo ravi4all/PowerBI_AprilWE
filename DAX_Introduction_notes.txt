@@ -28,5 +28,127 @@ VAR IndSales = FILTER(ALL(Data[Country]), Data[Country] = "India")
 RETURN CALCULATE([AvgProfit], IndSales)
 
 
+SalesPrice = 
+VAR SP = 
+    SUMX(Data, Data[Order Qty] * Data[Price])
+VAR OrderCount = 
+    DISTINCTCOUNT(Data[Order ID])
+RETURN 
+    DIVIDE(SP, OrderCount)
+
+
+BestProductSale = 
+VAR BestProduct = TOPN(10, Data, [Sales])
+VAR SalesOfTopN = SUMX(Data, Data[Order Qty] * Data[Unit Cost])
+RETURN SalesOfTopN
+
+
+Running Total
+
+YTD - Year To Date Calculation
+
+SalesYTD = 
+CALCULATE([SalesPrice], DATESYTD(Data[Order Date]))
+
+
+Date = CALENDAR(DATE(2020,01,01), DATE(2023,12,31))
+
+
+YOY - Year Over Year
+MOM	- Month Over Month
+QOQ - Quarter Over Quarter
+
+DATE(Year, Month, Day)
+
+DATEDIFF - Number of interval boundaries b/w 2 dates
+DATEDIFF(date_1, date_2, interval)
+
+DateDifference = 
+VAR STARTDATE = DATE(2020,02,20)
+VAR ENDDATE = DATE(2023, 05, 21)
+RETURN {
+    ("Year", DATEDIFF(STARTDATE, ENDDATE, YEAR)),
+    ("Month", DATEDIFF(STARTDATE, ENDDATE, MONTH)),
+    ("Week", DATEDIFF(STARTDATE, ENDDATE, WEEK)),
+    ("Day", DATEDIFF(STARTDATE, ENDDATE, DAY)),
+    ("Hours", DATEDIFF(STARTDATE, ENDDATE, HOUR))
+}
+
+DAY - Returns Day of the Month
+VAR V1 = DAY("03/04/2020")
+VAR V2 = DAY("Nov 6 2022")
+VAR V2 = DAY("10-5-2009")
+
+Month
+Year
+Hour
+Minute
+Seconds
+WeekDay
+WeekNum
+
+NetworkDays - difference between two dates but working days only
+WorkingDays = NETWORKDAYS(Data[Order Date], 
+        NOW(), 1,{
+            DATE(2021,01,26), 
+            DATE(2021,08,15)
+        }
+)
+====================================
+
+Logical Functions
+AND, OR, NOT
+IF, IFERROR, IF.EAGER
+SWITCH
+BITAND, BITXOR, BITOR
+COALESCE
+
+
+SwitchData = SWITCH(MONTH(Data[Order Date]),
+    1, "Jan",
+    2, "Feb",
+    3, "Mar",
+    4, "Apr",
+    5, "May",
+    6, "June",
+    7, "July",
+    8, "Aug",
+    9, "Sep",
+    10, "Oct",
+    11, "Nov",
+    12, "Dec",
+    "Unknown"
+)
+
+
+ProfitWithAnd = IF(AND(Data[Sales] > 1000, Data[Profit] > 500), "50% Profit", "Not 50% Profit")
+
+ProfitWithAnd = IF(OR(Data[Sales] > 1000, Data[Profit] > 500), "50% Profit", "Not 50% Profit")
+
+
+Calculate Function
+- Filter Functions
+	- CROSSFILTER, ALL, ALLEXCEPT, ALLSELECTED, ALLNOBLANKROW, REMOVEFILTERS
+
+
+IndProfit = CALCULATE(SUM(Data[Profit]), Data[Country]="India")
+
+IndFilterFunction = CALCULATE(SUM(Data[Sales]), 
+FILTER(
+    ALL(Data[Country]), Data[Country] = "India"
+))
+
+
+
+https://api.openweathermap.org/data/2.5/forecast?lat=28.7041&lon=77.1025&appid=83e01e3dce5d28839bb5a177cb51af12
+
+EVALUATE
+SUMMARIZECOLUMNS(
+	Data[Country], Data[Product Category],
+	KEEPFILTERS(TREATAS({"India"}, Data[Country])),
+	"Profit", [AvgProfit]
+)
+
+
 
 
